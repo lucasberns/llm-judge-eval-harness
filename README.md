@@ -1,4 +1,4 @@
-# Title
+# LLM-as-Judge Evaluation Harness
 ### Phrase explaining the project
 
 ---
@@ -33,8 +33,6 @@
 ---
 
 ## How to run (setup, commands)
-
----
 
 ---
 
