@@ -1,14 +1,52 @@
 import numpy as np
 import random
+import pandas as pd
+import nltk
 
 from datasets import load_dataset
 
 def download_data():
     DATA = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base")
+    return DATA
 
-def create_csv():
+def create_csv(DATA):
+    ANSWER_A = []
+    ANSWER_B = []
+    PROMPT = []
+    CHOSEN = []
+
     for i in range(300):
-        CHOSEN = DATA['chosen'][i]
-        REJECTED = DATA['rejected'][i]
+        HUMAN_CHOSEN = DATA['train']['chosen'][i]
+        HUMAN_REJECTED = DATA['train']['rejected'][i]
 
-        
+        TEXT_A = nltk.tokenize.sent_tokenize(HUMAN_CHOSEN)
+        FINAL_A = TEXT_A[-1] # COLLECTING ONLY THE LAST PHRASE, NOT THE REAL RESPONSE
+        TEXT_B = nltk.tokenize.sent_tokenize(HUMAN_REJECTED)
+        FINAL_B = TEXT_B[-1]
+
+        START = " ".join(TEXT_A[:-1])
+
+        ANSWERS = [FINAL_A, FINAL_B]
+        random.shuffle(ANSWERS)
+        ANS_A, ANS_B = ANSWERS
+
+        if (ANS_A == FINAL_A): #IMPROVE == METHOD 
+            CORRECT = "A"
+        else:
+            CORRECT = "B"
+
+        ANSWER_A.append(ANS_A)
+        ANSWER_B.append(ANS_B)
+        PROMPT.append(START)
+        CHOSEN.append(CORRECT)
+
+    CREATOR = {"PROMPT": PROMPT, "ANSWER_A": ANSWER_A, "ANSWER_B": ANSWER_B, "CORRECT": CHOSEN}
+    pd.DataFrame(data=CREATOR).to_csv() # DOESN'T WRITE AN ACTUAL FILE
+
+
+def main():
+    DATA = download_data()
+    create_csv(DATA)
+
+if __name__ == "__main__":
+    main()
