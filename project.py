@@ -29,12 +29,13 @@ def create_csv(DATA):
         HUMAN_CHOSEN = DATA['train']['chosen'][i]
         HUMAN_REJECTED = DATA['train']['rejected'][i]
 
-        TEXT_A = nltk.tokenize.sent_tokenize(HUMAN_CHOSEN)
-        FINAL_A = TEXT_A[-1] # COLLECTING ONLY THE LAST PHRASE, NOT THE REAL RESPONSE
-        TEXT_B = nltk.tokenize.sent_tokenize(HUMAN_REJECTED)
-        FINAL_B = TEXT_B[-1]
+        PARSED_CHOSEN = [item.strip() for item in HUMAN_CHOSEN.split("\n")]
+        PARSED_REJECTED = [item.strip() for item in HUMAN_REJECTED.split("\n")]
 
-        START = " ".join(TEXT_A[:-1])
+        FINAL_A = PARSED_CHOSEN[-1]
+        FINAL_B = PARSED_REJECTED[-1]
+
+        START = " ".join(PARSED_CHOSEN[:-1])
 
         ANSWERS = [FINAL_A, FINAL_B]
         random.shuffle(ANSWERS)
