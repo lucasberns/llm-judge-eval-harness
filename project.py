@@ -2,10 +2,10 @@ import numpy as np
 import random
 import pandas as pd
 import nltk
-from difflib import SequenceMatcher
 import os
-from dotenv import load_dotenv
 
+from difflib import SequenceMatcher
+from dotenv import load_dotenv
 from datasets import load_dataset
 
 load_dotenv()
@@ -33,13 +33,11 @@ def create_csv(DATA):
         HUMAN_CHOSEN = DATA['train']['chosen'][i]
         HUMAN_REJECTED = DATA['train']['rejected'][i]
 
-        PARSED_CHOSEN = [item.strip() for item in HUMAN_CHOSEN.split("\n")]
-        PARSED_REJECTED = [item.strip() for item in HUMAN_REJECTED.split("\n")]
+        PARSED_CHOSEN = HUMAN_CHOSEN.rsplit("\n\nAssistant:", 1)
+        PARSED_REJECTED = HUMAN_REJECTED.rsplit("\n\nAssistant:", 1)
 
-        FINAL_A = PARSED_CHOSEN[-1]
-        FINAL_B = PARSED_REJECTED[-1]
-
-        START = " ".join(PARSED_CHOSEN[:-1])
+        START, FINAL_A = [PARSED_CHOSEN]
+        FINAL_B = [PARSED_REJECTED][-1]
 
         ANSWERS = [FINAL_A, FINAL_B]
         random.shuffle(ANSWERS)
