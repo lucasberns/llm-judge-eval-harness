@@ -33,11 +33,11 @@ def create_csv(DATA):
         HUMAN_CHOSEN = DATA['train']['chosen'][i]
         HUMAN_REJECTED = DATA['train']['rejected'][i]
 
-        PARSED_CHOSEN = HUMAN_CHOSEN.rsplit("\n\nAssistant:", 1)
-        PARSED_REJECTED = HUMAN_REJECTED.rsplit("\n\nAssistant:", 1)
+        PARSED_CHOSEN = HUMAN_CHOSEN.rsplit("Assistant:", 1)
+        PARSED_REJECTED = HUMAN_REJECTED.rsplit("Assistant:", 1)
 
-        START, FINAL_A = [PARSED_CHOSEN]
-        FINAL_B = [PARSED_REJECTED][-1]
+        START, FINAL_A = PARSED_CHOSEN
+        FINAL_B = PARSED_REJECTED[-1] 
 
         ANSWERS = [FINAL_A, FINAL_B]
         random.shuffle(ANSWERS)
