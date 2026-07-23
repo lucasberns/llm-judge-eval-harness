@@ -2,12 +2,22 @@ import numpy as np
 import random
 import pandas as pd
 import nltk
+from difflib import SequenceMatcher
 
 from datasets import load_dataset
 
 def download_data():
     DATA = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base")
     return DATA
+
+def compare_phrases(PHRASE_1, PHRASE_2):
+    MATCHER = SequenceMatcher(None, PHRASE_1, PHRASE_2)
+    RATIO = MATCHER.ratio()
+
+    if (MATCHER >= 0.8):
+        return "A"
+    else:
+        return "B"
 
 def create_csv(DATA):
     ANSWER_A = []
@@ -30,10 +40,7 @@ def create_csv(DATA):
         random.shuffle(ANSWERS)
         ANS_A, ANS_B = ANSWERS
 
-        if (ANS_A == FINAL_A): #IMPROVE == METHOD 
-            CORRECT = "A"
-        else:
-            CORRECT = "B"
+        CORRECT = compare_phrases(ANS_A, FINAL_A)
 
         ANSWER_A.append(ANS_A)
         ANSWER_B.append(ANS_B)
