@@ -3,18 +3,22 @@ import random
 import pandas as pd
 import nltk
 from difflib import SequenceMatcher
+import os
+from dotenv import load_dotenv
 
 from datasets import load_dataset
 
+load_dotenv()
+
 def download_data():
-    DATA = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base")
+    DATA = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base", token=os.getenv("HF_TOKEN"))
     return DATA
 
 def compare_phrases(PHRASE_1, PHRASE_2):
     MATCHER = SequenceMatcher(None, PHRASE_1, PHRASE_2)
     RATIO = MATCHER.ratio()
 
-    if (MATCHER >= 0.8):
+    if (RATIO >= 0.8):
         return "A"
     else:
         return "B"
