@@ -41,7 +41,7 @@ def create_csv(DATA):
         CHOSEN.append(CORRECT)
 
     CREATOR = {"PROMPT": PROMPT, "ANSWER_A": ANSWER_A, "ANSWER_B": ANSWER_B, "CORRECT": CHOSEN}
-    pd.DataFrame(data=CREATOR).to_csv() # DOESN'T WRITE AN ACTUAL FILE
+    pd.DataFrame(data=CREATOR).to_csv('treated_data.csv', index=False)
 
 
 def main():
