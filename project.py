@@ -25,6 +25,8 @@ def compare_phrases(PHRASE_1, PHRASE_2):
         return "B"
 
 def parse_json(model_choice):
+    if model_choice[0] and model_choice[1] and model_choice[2] == "'":
+        model_choice = model_choice.rsplit("'''", 1)
     parsed = json.loads(model_choice)
 
     return parsed
@@ -87,7 +89,7 @@ def judge_call():
             messages=[
                 {"role": "user", "content": MODEL_PROMPT}
             ],
-            max_tokens=200, temperature=0.6, seeds=80
+            max_tokens=200, temperature=0.6, seed=80
         )
 
         model_choice = RESPONSE.choices[0].message.content
