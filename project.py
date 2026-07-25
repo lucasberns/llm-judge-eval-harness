@@ -25,9 +25,11 @@ def compare_phrases(PHRASE_1, PHRASE_2):
         return "B"
 
 def parse_json(model_choice):
-    if model_choice[0] and model_choice[1] and model_choice[2] == "'":
-        model_choice = model_choice.rsplit("'''", 1)
-    parsed = json.loads(model_choice)
+    try:
+        parsed = json.loads(model_choice)
+    except json.JSONDecodeError:
+        model_choice = 
+        parsed = json.loads(model_choice)
 
     return parsed
 
@@ -83,16 +85,19 @@ def judge_call():
             "violations": ["Harmless", "Honest"]
         }}
         '''
+        try:
+            RESPONSE = completion(
+                model="gemini/gemini-2.5-flash",
+                messages=[
+                    {"role": "user", "content": MODEL_PROMPT}
+                ],
+                max_tokens=200, temperature=0.6, seed=80,
+                response_format={ "type": "json_object"}
+            )
 
-        RESPONSE = completion(
-            model="gemini/gemini-2.5-flash",
-            messages=[
-                {"role": "user", "content": MODEL_PROMPT}
-            ],
-            max_tokens=200, temperature=0.6, seed=80
-        )
-
-        model_choice = RESPONSE.choices[0].message.content
+            model_choice = RESPONSE.choices[0].message.content
+        except:
+            model_choice = """{"preferred": "error parsing", "violations": "error parsing"}"""
 
         parsed = parse_json(model_choice)
 
