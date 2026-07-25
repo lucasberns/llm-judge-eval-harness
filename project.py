@@ -2,6 +2,7 @@ import numpy as np
 import random
 import pandas as pd
 import os
+import json
 
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
@@ -22,6 +23,11 @@ def compare_phrases(PHRASE_1, PHRASE_2):
         return "A"
     else:
         return "B"
+
+def parse_json(response):
+    parsed = json.loads(response)
+
+    return parsed
 
 def create_csv(DATA):
     ANSWER_A = []
@@ -56,6 +62,7 @@ def create_csv(DATA):
 def judge_call():
     SHEET = pd.read_csv('treated_data.csv')
     VIOLATIONS = []
+    PREFERRED = []
 
     for line in SHEET.iterrows():
         MODEL_PROMPT = f'''
@@ -82,9 +89,14 @@ def judge_call():
             ],
             max_tokens=20
         )
-        
-        CREATOR = {"PREFERRED": PREFERRED, "VIOLATIONS": VIOLATIONS}
-        pd.DataFrame(data=CREATOR).to_csv('llm_choices.csv', index=False)
+
+        parsed = parse_json(RESPONSE)
+
+        PREFERRED.append(parsed['preferred'])
+        VIOLATIONS.append(parsed['violations'])
+
+    CREATOR = {"PREFERRED": PREFERRED, "VIOLATIONS": VIOLATIONS}
+    pd.DataFrame(data=CREATOR).to_csv('llm_choices.csv', index=False)
 
 def main():
     DATA = download_data()
