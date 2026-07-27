@@ -103,7 +103,7 @@ def judge_call():
                 messages=[
                     {"role": "user", "content": model_prompt}
                 ],
-                max_tokens=200, temperature=0.6, seed=80,
+                max_tokens=300, temperature=0.6, seed=80,
                 response_format={ "type": "json_object"}
             )
 
