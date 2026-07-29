@@ -179,7 +179,7 @@ def calculate_error():
 
             creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices,
                        "KAPPA SCORE": kappa_score, "VIOLATIONS": violations}
-            pd.DataFrame(creator, index=False)
+            pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
     else:
         print("\nOne of the csv has less rows.")
     
