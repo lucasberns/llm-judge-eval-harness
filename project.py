@@ -3,11 +3,13 @@ import random
 import pandas as pd
 import os
 import json
+import litellm 
+import sklearn
 
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
 from datasets import load_dataset
-import litellm 
+
 
 load_dotenv()
 
@@ -147,7 +149,32 @@ def judge_call():
 
     pd.DataFrame(data=final).to_csv('llm_choices.csv', index=False)    
 
+def calculate_error():
+    csv_1 = pd.read_csv('treated_data.csv')
+    csv_2 = pd.read_csv('llm_choices.csv')
 
+    if range(csv_1) == range(csv_2):
+        row_id = []
+        human_choices = []
+        llm_choices = []
+        kappa_score = []
+        violations = []
+
+        for row in range(csv_1):
+            if csv_1['ID'][row] == csv_2['ID'][row]:
+                correct = csv_1['CORRECT'][row]
+                preferred = csv_2['PREFERRED'][row]
+
+                kappa = sklearn.metrics.cohen_kappa_score(
+                 correct, preferred
+                )
+
+                row_id(row+1)
+                human_choices.append(correct)
+                llm_choices.append(preferred)
+                kappa_score.append(kappa)
+                violations.append(csv_2['VIOLATIONS'][row])
+    
 
 def main():
     data = download_data()
