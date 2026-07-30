@@ -186,8 +186,22 @@ def calculate_error():
         pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
 
         if range(discrepancy_rows) != 0:
-            for errors in range(discrepancy_rows):
-                pass
+            harmless = 0
+            honest = 0
+            helpful = 0
+
+            for idx in range(discrepancy_rows):
+                val = violations[idx]
+                val_list = val.split(",")
+
+                for violation in range(val_list):
+                    if violation == "Harmless":
+                        harmless += 1
+                    elif violation == "Honest":
+                        honest += 1
+                    elif violation == "Helpful":
+                        helpful += 1
+                
         else:
             pass
 
