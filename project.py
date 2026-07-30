@@ -183,12 +183,15 @@ def calculate_error():
     else:
         print("\nOne of the csv has less rows.")
     
+def discrepancy_evaluate():
+    pass
 
 def main():
     data = download_data()
     create_csv(data)
     
     judge_call()
+    calculate_error()
 
 if __name__ == "__main__":
     main()
