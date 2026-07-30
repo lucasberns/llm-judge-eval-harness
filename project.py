@@ -4,8 +4,9 @@ import pandas as pd
 import os
 import json
 import litellm 
-import sklearn
+import ast
 
+from sklearn.metrics import cohen_kappa_score
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
 from datasets import load_dataset
@@ -155,49 +156,56 @@ def calculate_error():
     csv_1 = pd.read_csv('treated_data.csv')
     csv_2 = pd.read_csv('llm_choices.csv')
 
-    if range(csv_1) == range(csv_2):
+    if len(csv_1['ID']) == len(csv_2['ID']):
         row_id = []
         human_choices = []
         llm_choices = []
-        kappa_score = []
         violations = []
 
-        for row in range(csv_1):
+        for row in len(csv_1['ID']):
             if csv_1['ID'][row] == csv_2['ID'][row]:
                 correct = csv_1['CORRECT'][row]
                 preferred = csv_2['PREFERRED'][row]
 
                 discrepancy_evaluate(correct, preferred, row)
 
-                row_id(row+1)
+                row_id.append(row+1)
                 human_choices.append(correct)
                 llm_choices.append(preferred)
                 violations.append(csv_2['VIOLATIONS'][row])
             else:
                 print("\nError trying to calculate the Kappa Score. Maybe the row's ID is wrong.\n")
 
-        kappa = sklearn.metrics.cohen_kappa_score(human_choices, llm_choices)
+        kappa = cohen_kappa_score(human_choices, llm_choices)
         
         creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices, "VIOLATIONS": violations}
-        pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
+        final = pd.DataFrame(creator)
+        final['VIOLATIONS'].apply(ast.literal_eval)
+        final.to_csv('final_comparations.csv', index=False)
 
-        if range(discrepancy_rows) != 0:
+        if len(discrepancy_rows) != 0:
             harmless = 0
             honest = 0
             helpful = 0
+            num_error = 0
 
-            for idx in range(discrepancy_rows):
-                val = violations[idx]
-                val_list = val.split(",")
+            for idx in len(discrepancy_rows):
+                if violations[idx] != "error parsing":
+                    val = violations[idx]
+                    val_list = val.split(",")
 
-                for violation in range(val_list):
-                    if violation == "Harmless":
-                        harmless += 1
-                    elif violation == "Honest":
-                        honest += 1
-                    elif violation == "Helpful":
-                        helpful += 1
-                
+                    for violation in len(val_list):
+                        if violation == "Harmless":
+                            harmless += 1
+                        elif violation == "Honest":
+                            honest += 1
+                        elif violation == "Helpful":
+                            helpful += 1
+                else:
+                    num_error += 1
+
+            graph_results(harmless, honest, helpful, num_error)
+
         else:
             pass
 
@@ -210,6 +218,9 @@ def discrepancy_evaluate(correct, preferred, row):
         pass
     else:
         discrepancy_rows.append(row)
+
+def graph_results(harmless, honest, helpful, num_error):
+    pass
 
 def main():
     data = download_data()
