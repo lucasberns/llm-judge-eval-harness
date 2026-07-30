@@ -167,22 +167,18 @@ def calculate_error():
                 correct = csv_1['CORRECT'][row]
                 preferred = csv_2['PREFERRED'][row]
 
-                kappa = sklearn.metrics.cohen_kappa_score(
-                 correct, preferred
-                )
-
                 discrepancy_evaluate(correct, preferred, row)
 
                 row_id(row+1)
                 human_choices.append(correct)
                 llm_choices.append(preferred)
-                kappa_score.append(kappa)
                 violations.append(csv_2['VIOLATIONS'][row])
             else:
                 print("\nError trying to calculate the Kappa Score. Maybe the row's ID is wrong.\n")
 
-        creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices,
-                    "KAPPA SCORE": kappa_score, "VIOLATIONS": violations}
+        kappa = sklearn.metrics.cohen_kappa_score(human_choices, llm_choices)
+        
+        creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices, "VIOLATIONS": violations}
         pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
 
         if range(discrepancy_rows) != 0:
