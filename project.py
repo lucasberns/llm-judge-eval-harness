@@ -14,6 +14,7 @@ from datasets import load_dataset
 load_dotenv()
 
 checkpoint_count = 0
+discrepancy_rows = []
 
 def download_data():
     data = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base", token=os.getenv("HF_TOKEN"))
@@ -150,6 +151,7 @@ def judge_call():
     pd.DataFrame(data=final).to_csv('llm_choices.csv', index=False)    
 
 def calculate_error():
+    global discrepancy_rows
     csv_1 = pd.read_csv('treated_data.csv')
     csv_2 = pd.read_csv('llm_choices.csv')
 
@@ -169,6 +171,8 @@ def calculate_error():
                  correct, preferred
                 )
 
+                discrepancy_evaluate(correct, preferred, row)
+
                 row_id(row+1)
                 human_choices.append(correct)
                 llm_choices.append(preferred)
@@ -177,14 +181,25 @@ def calculate_error():
             else:
                 print("\nError trying to calculate the Kappa Score. Maybe the row's ID is wrong.\n")
 
-            creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices,
-                       "KAPPA SCORE": kappa_score, "VIOLATIONS": violations}
-            pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
+        creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices,
+                    "KAPPA SCORE": kappa_score, "VIOLATIONS": violations}
+        pd.DataFrame(creator).to_csv('final_comparations.csv', index=False)
+
+        if range(discrepancy_rows) != 0:
+            for errors in range(discrepancy_rows):
+                pass
+        else:
+            pass
+
     else:
         print("\nOne of the csv has less rows.")
     
-def discrepancy_evaluate():
-    pass
+def discrepancy_evaluate(correct, preferred, row):
+    global discrepancy_rows
+    if correct == preferred:
+        pass
+    else:
+        discrepancy_rows.append(row)
 
 def main():
     data = download_data()
