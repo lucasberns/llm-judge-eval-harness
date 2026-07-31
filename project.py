@@ -162,17 +162,19 @@ def calculate_error():
         llm_choices = []
         violations = []
 
-        for row in len(csv_1['ID']):
+        for row in range(len(csv_1['ID'])):
             if csv_1['ID'][row] == csv_2['ID'][row]:
                 correct = csv_1['CORRECT'][row]
                 preferred = csv_2['PREFERRED'][row]
+                if violations[idx] != "error parsing":
+                    discrepancy_evaluate(correct, preferred, row)
 
-                discrepancy_evaluate(correct, preferred, row)
-
-                row_id.append(row+1)
-                human_choices.append(correct)
-                llm_choices.append(preferred)
-                violations.append(csv_2['VIOLATIONS'][row])
+                    row_id.append(row+1)
+                    human_choices.append(correct)
+                    llm_choices.append(preferred)
+                    violations.append(csv_2['VIOLATIONS'][row])
+                else:
+                    pass
             else:
                 print("\nError trying to calculate the Kappa Score. Maybe the row's ID is wrong.\n")
 
@@ -180,7 +182,7 @@ def calculate_error():
         
         creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices, "VIOLATIONS": violations}
         final = pd.DataFrame(creator)
-        final['VIOLATIONS'].apply(ast.literal_eval)
+        final['VIOLATIONS'] = final['VIOLATIONS'].apply(ast.literal_eval)
         final.to_csv('final_comparations.csv', index=False)
 
         if len(discrepancy_rows) != 0:
@@ -189,12 +191,12 @@ def calculate_error():
             helpful = 0
             num_error = 0
 
-            for idx in len(discrepancy_rows):
+            for idx in range(len(discrepancy_rows)):
                 if violations[idx] != "error parsing":
                     val = violations[idx]
                     val_list = val.split(",")
 
-                    for violation in len(val_list):
+                    for violation in range(len(val_list)):
                         if violation == "Harmless":
                             harmless += 1
                         elif violation == "Honest":
