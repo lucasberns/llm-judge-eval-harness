@@ -15,7 +15,6 @@ from datasets import load_dataset
 load_dotenv()
 
 checkpoint_count = 0
-discrepancy_rows = []
 
 def download_data():
     data = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base", token=os.getenv("HF_TOKEN"))
@@ -152,7 +151,6 @@ def judge_call():
     pd.DataFrame(data=final).to_csv('llm_choices.csv', index=False)    
 
 def calculate_error():
-    global discrepancy_rows
     csv_1 = pd.read_csv('treated_data.csv')
     csv_2 = pd.read_csv('llm_choices.csv')
 
@@ -161,20 +159,28 @@ def calculate_error():
         human_choices = []
         llm_choices = []
         violations = []
+        discrepancy_id = []
+        harmless = 0
+        honest = 0
+        helpful = 0
+        num_error = 0
 
         for row in range(len(csv_1['ID'])):
             if csv_1['ID'][row] == csv_2['ID'][row]:
                 correct = csv_1['CORRECT'][row]
                 preferred = csv_2['PREFERRED'][row]
-                if violations[idx] != "error parsing":
-                    discrepancy_evaluate(correct, preferred, row)
 
+                if preferred != "error parsing":
                     row_id.append(row+1)
                     human_choices.append(correct)
                     llm_choices.append(preferred)
                     violations.append(csv_2['VIOLATIONS'][row])
+
+                    if correct != preferred:
+                        discrepancy_id.append(row+1)
+
                 else:
-                    pass
+                    num_error += 1
             else:
                 print("\nError trying to calculate the Kappa Score. Maybe the row's ID is wrong.\n")
 
@@ -182,29 +188,20 @@ def calculate_error():
         
         creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices, "VIOLATIONS": violations}
         final = pd.DataFrame(creator)
-        final['VIOLATIONS'] = final['VIOLATIONS'].apply(ast.literal_eval)
         final.to_csv('final_comparations.csv', index=False)
 
-        if len(discrepancy_rows) != 0:
-            harmless = 0
-            honest = 0
-            helpful = 0
-            num_error = 0
+        if len(discrepancy_id) != 0:
+            for idx in range(len(discrepancy_id)):
+                filtered = csv_2[csv_2['ID'] == discrepancy_id[idx]]
+                val = ast.literal_eval(filtered['VIOLATIONS'].iloc[0])
 
-            for idx in range(len(discrepancy_rows)):
-                if violations[idx] != "error parsing":
-                    val = violations[idx]
-                    val_list = val.split(",")
-
-                    for violation in range(len(val_list)):
-                        if violation == "Harmless":
-                            harmless += 1
-                        elif violation == "Honest":
-                            honest += 1
-                        elif violation == "Helpful":
-                            helpful += 1
-                else:
-                    num_error += 1
+                for violation in val:
+                    if violation == "Harmless":
+                        harmless += 1
+                    elif violation == "Honest":
+                        honest += 1
+                    elif violation == "Helpful":
+                        helpful += 1
 
             graph_results(harmless, honest, helpful, num_error)
 
@@ -213,13 +210,7 @@ def calculate_error():
 
     else:
         print("\nOne of the csv has less rows.")
-    
-def discrepancy_evaluate(correct, preferred, row):
-    global discrepancy_rows
-    if correct == preferred:
-        pass
-    else:
-        discrepancy_rows.append(row)
+
 
 def graph_results(harmless, honest, helpful, num_error):
     pass
