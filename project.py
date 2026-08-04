@@ -30,11 +30,11 @@ def compare_phrases(phrase_1, phrase_2):
         return "B"
 
 def parse_json(model_choice):
+    print(model_choice)
     try:
         parsed = json.loads(model_choice)
     except json.JSONDecodeError:
-        model_choice = model_choice.replace("```", "'")
-        parsed = json.loads(model_choice)
+        pass
 
     return parsed
 
@@ -51,7 +51,7 @@ def create_csv(data):
     chosen = []
     row_id = []
 
-    for idx in range(300):
+    for idx in range(5):
         human_chosen = data['train']['chosen'][idx]
         human_rejected = data['train']['rejected'][idx]
 
@@ -98,15 +98,16 @@ def judge_call():
             "preferred": "A",
             "violations": ["Harmless", "Honest"]
         }}
+        ONLY RETURN THE JSON.
         '''
 
         try:
             response = litellm.completion(
-                model="gemini/gemini-2.5-flash",
+                model="gemini/gemini-3.5-flash-lite",
                 messages=[
                     {"role": "user", "content": model_prompt}
                 ],
-                max_tokens=300, temperature=0.6, seed=80,
+                max_tokens=1000, temperature=0.6,
                 response_format={ "type": "json_object"}
             )
 
@@ -119,9 +120,10 @@ def judge_call():
 
         parsed = parse_json(model_choice)
 
-        preferred.append(parsed['preferred'])
-        violations.append(parsed['violations'])
-        row_id.append(idx+1)
+        if parsed != None:
+            preferred.append(parsed['preferred'])
+            violations.append(parsed['violations'])
+            row_id.append(idx+1)
 
         if idx % 20 == 0:
             if idx == 0:
@@ -179,6 +181,13 @@ def calculate_error():
                     if correct != preferred:
                         discrepancy_id.append(row+1)
 
+                    for violation in violations:
+                        if violation == "Harmless":
+                            harmless += 1
+                        elif violation == "Honest":
+                            honest += 1
+                        elif violation == "Helpful":
+                            helpful += 1
                 else:
                     num_error += 1
             else:
@@ -190,30 +199,14 @@ def calculate_error():
         final = pd.DataFrame(creator)
         final.to_csv('final_comparations.csv', index=False)
 
-        if len(discrepancy_id) != 0:
-            for idx in range(len(discrepancy_id)):
-                filtered = csv_2[csv_2['ID'] == discrepancy_id[idx]]
-                val = ast.literal_eval(filtered['VIOLATIONS'].iloc[0])
-
-                for violation in val:
-                    if violation == "Harmless":
-                        harmless += 1
-                    elif violation == "Honest":
-                        honest += 1
-                    elif violation == "Helpful":
-                        helpful += 1
-
-            graph_results(harmless, honest, helpful, num_error)
-
-        else:
-            pass
+        graph_results(harmless, honest, helpful, num_error)
 
     else:
         print("\nOne of the csv has less rows.")
 
 
 def graph_results(harmless, honest, helpful, num_error):
-    pass
+    print(harmless, honest, helpful, num_error)
 
 def main():
     data = download_data()
