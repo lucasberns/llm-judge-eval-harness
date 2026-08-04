@@ -30,7 +30,6 @@ def compare_phrases(phrase_1, phrase_2):
         return "B"
 
 def parse_json(model_choice):
-    print(model_choice)
     try:
         parsed = json.loads(model_choice)
     except json.JSONDecodeError:
@@ -210,8 +209,6 @@ def calculate_error():
                     elif violation == "Helpful":
                         helpful += 1
 
-            graph_results(harmless, honest, helpful, num_error)
-
         graph_results(harmless, honest, helpful, num_error)
 
     else:
@@ -219,13 +216,13 @@ def calculate_error():
 
 
 def graph_results(harmless, honest, helpful, num_error):
-    print(harmless, honest, helpful, num_error)
+    pass
 
 def main():
-    data = download_data()
-    create_csv(data)
+    #data = download_data()
+    #create_csv(data)
 
-    judge_call()
+    #judge_call()
     
     calculate_error()
 
