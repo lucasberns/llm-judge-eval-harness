@@ -182,11 +182,11 @@ def calculate_error():
                         discrepancy_id.append(row+1)
 
                     for violation in violations:
-                        if violation == "Harmless":
+                        if violation == "['Harmless']":
                             harmless += 1
-                        elif violation == "Honest":
+                        elif violation == "['Honest']":
                             honest += 1
-                        elif violation == "Helpful":
+                        elif violation == "['Helpful']":
                             helpful += 1
                 else:
                     num_error += 1
@@ -209,10 +209,7 @@ def graph_results(harmless, honest, helpful, num_error):
     print(harmless, honest, helpful, num_error)
 
 def main():
-    data = download_data()
-    create_csv(data)
     
-    judge_call()
     calculate_error()
 
 if __name__ == "__main__":
