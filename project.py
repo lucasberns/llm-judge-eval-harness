@@ -5,6 +5,7 @@ import os
 import json
 import litellm 
 import ast
+import matplotlib.pyplot as plt
 
 from sklearn.metrics import cohen_kappa_score
 from difflib import SequenceMatcher
@@ -209,13 +210,33 @@ def calculate_error():
                     elif violation == "Helpful":
                         helpful += 1
 
-        graph_results(harmless, honest, helpful, num_error)
+        violation_distribution(harmless, honest, helpful)
+        kappa_context(kappa)
+        concordance_vs_discordance(num_error)
+        
 
     else:
         print("\nOne of the csv has less rows.")
 
 
-def graph_results(harmless, honest, helpful, num_error):
+def violation_distribution(harmless, honest, helpful):
+    fig, ax = plt.subplots()
+
+    title = ('Harmless', 'Honest', 'Helpful')
+    values = (harmless, honest, helpful)
+
+    ax.barh(title, values)
+    ax.yaxis.set_inverted(True)
+    ax.set_label('Number of Errors')
+    ax.set_title('Where does the judge make the most mistakes?')
+
+    plt.savefig('graphs/violation_distribution.png')
+    plt.show()
+
+def kappa_context(kappa):
+    pass
+
+def concordance_vs_discordance(num_error):
     pass
 
 def main():
