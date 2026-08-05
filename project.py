@@ -171,6 +171,7 @@ def calculate_error():
         honest = 0
         helpful = 0
         num_error = 0
+        concordance = 0
 
         for row in range(len(csv_1['ID'])):
             if csv_1['ID'][row] == csv_2['ID'][row]:
@@ -185,6 +186,8 @@ def calculate_error():
 
                     if correct != preferred:
                         discrepancy_id.append(row+1)
+                    else:
+                        concordance += 1
 
                 else:
                     num_error += 1
@@ -212,7 +215,7 @@ def calculate_error():
 
         violation_distribution(harmless, honest, helpful)
         kappa_context(kappa)
-        concordance_vs_discordance(num_error)
+        concordance_vs_discordance(concordance, len(discrepancy_id), num_error)
         
 
     else:
@@ -236,8 +239,30 @@ def violation_distribution(harmless, honest, helpful):
 def kappa_context(kappa):
     pass
 
-def concordance_vs_discordance(num_error):
-    pass
+def concordance_vs_discordance(concodance, discordance, num_error):
+    fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+
+    elements = ["Concordance", "Discordance", "Parsing Error"]
+    data = [concodance, discordance, num_error]
+
+    donut = ax.pie(data, wedgeprops=dict(width=0.5), startangle=-40)
+
+    bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
+    kw = dict(arrowprops=dict(arrowstyle="-"),
+              bbox=bbox_props, zorder=0, va="center")
+
+    for i, p in enumerate(donut.wedges):
+        ang = (p.theta2 - p.theta1)/2. + p.theta1
+        y = np.sin(np.deg2rad(ang))
+        x = np.cos(np.deg2rad(ang))
+        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+        connectionsstyle = f"angle, angleA=0, angleB={ang}"
+        kw["arrowprops"].update({"connectionsstyle": connectionsstyle})
+        ax.annotate(elements[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),
+                    horizontalalignment=horizontalalignment, **kw)
+
+    ax.set_title('Concordance vs Discordance vs Error Parsing')
+    plt.savefig('graphs/concordance_vs_discordance.png')
 
 def main():
     #data = download_data()
