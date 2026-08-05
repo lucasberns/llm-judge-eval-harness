@@ -237,7 +237,33 @@ def violation_distribution(harmless, honest, helpful):
     plt.show()
 
 def kappa_context(kappa):
-    pass
+    fig, ax = plt.subplots()
+    bottom = np.zeros(3)
+
+    name = ('Landis & Koch Scale', ' ')
+    reference_table = {
+        'Slight': [20, 0],
+        'Fair': [20, 0],
+        'Moderate': [20, 0],
+        'Substantial': [20, 0],
+        'Almost Perfect': [20, 0]
+    }
+
+    width = (0.6, 0.1)
+    bottom = np.zeros(2)
+
+    for categories, values in reference_table.items():
+        p = ax.bar(name, values, width, label=categories, bottom=bottom)
+        bottom += values
+
+        ax.bar_label(p, label_type='center')
+
+    ax.set_title("Cohen's Kappa Evaluation")
+    ax.legend()
+
+    plt.savefig('graphs/kappa_context.png')
+    plt.show()
+
 
 def concordance_vs_discordance(concodance, discordance, num_error):
     fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
