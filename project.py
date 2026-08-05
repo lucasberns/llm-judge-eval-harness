@@ -256,8 +256,8 @@ def concordance_vs_discordance(concodance, discordance, num_error):
         y = np.sin(np.deg2rad(ang))
         x = np.cos(np.deg2rad(ang))
         horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
-        connectionsstyle = f"angle, angleA=0, angleB={ang}"
-        kw["arrowprops"].update({"connectionsstyle": connectionsstyle})
+        connectionsstyle = f"angle,angleA=0,angleB={ang}"
+        kw["arrowprops"].update({'connectionsstyle': connectionsstyle})
         ax.annotate(elements[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),
                     horizontalalignment=horizontalalignment, **kw)
 
