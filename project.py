@@ -6,6 +6,7 @@ import json
 import litellm 
 import ast
 import matplotlib.pyplot as plt
+import time
 
 from sklearn.metrics import cohen_kappa_score
 from difflib import SequenceMatcher
@@ -51,7 +52,7 @@ def create_csv(data):
     chosen = []
     row_id = []
 
-    for idx in range(5):
+    for idx in range(30):
         human_chosen = data['train']['chosen'][idx]
         human_rejected = data['train']['rejected'][idx]
 
@@ -101,7 +102,7 @@ def judge_call():
 
         Return ONLY this JSON, nothing else:
         {{
-            "preferred": "A",
+            "preferred": "",
             "violations": []
         }}
         '''
@@ -140,6 +141,9 @@ def judge_call():
                 preferred.clear()
                 violations.clear()
                 row_id.clear()
+
+        if idx in {15, 30, 45, 60}:
+            time.sleep(120)
 
     creator = {"PREFERRED": preferred, "VIOLATIONS": violations, "ID": row_id}
     csv_checkpoint(creator)
@@ -234,11 +238,13 @@ def violation_distribution(harmless, honest, helpful):
     ax.set_title('Where does the judge make the most mistakes?')
 
     plt.savefig('graphs/violation_distribution.png')
-    plt.show()
+    #plt.show()
 
 def kappa_context(kappa):
     fig, ax = plt.subplots()
     bottom = np.zeros(3)
+    print(kappa)
+    kappa_position = kappa*100
 
     name = ('Landis & Koch Scale', ' ')
     reference_table = {
@@ -261,8 +267,10 @@ def kappa_context(kappa):
     ax.set_title("Cohen's Kappa Evaluation")
     ax.legend()
 
+    plt.scatter('Landis & Koch Scale', kappa_position, color='white', edgecolor='black', s=50)
+
     plt.savefig('graphs/kappa_context.png')
-    plt.show()
+    #plt.show()
 
 
 def concordance_vs_discordance(concodance, discordance, num_error):
@@ -289,13 +297,13 @@ def concordance_vs_discordance(concodance, discordance, num_error):
 
     ax.set_title('Concordance vs Discordance vs Error Parsing')
     plt.savefig('graphs/concordance_vs_discordance.png')
-    plt.show()
+    #plt.show()
 
 def main():
-    #data = download_data()
-    #create_csv(data)
+    data = download_data()
+    create_csv(data)
 
-    #judge_call()
+    judge_call()
     
     calculate_error()
 
