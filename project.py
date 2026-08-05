@@ -256,13 +256,14 @@ def concordance_vs_discordance(concodance, discordance, num_error):
         y = np.sin(np.deg2rad(ang))
         x = np.cos(np.deg2rad(ang))
         horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
-        connectionsstyle = f"angle,angleA=0,angleB={ang}"
-        kw["arrowprops"].update({'connectionsstyle': connectionsstyle})
-        ax.annotate(elements[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),
+        connectionstyle = f"angle,angleA=0,angleB={ang}"
+        kw["arrowprops"].update({'connectionstyle': connectionstyle})
+        ax.annotate(elements[i], xy=(x, y), xytext=(1.35*np.sign(x), 1.1*y),
                     horizontalalignment=horizontalalignment, **kw)
 
     ax.set_title('Concordance vs Discordance vs Error Parsing')
     plt.savefig('graphs/concordance_vs_discordance.png')
+    plt.show()
 
 def main():
     #data = download_data()
