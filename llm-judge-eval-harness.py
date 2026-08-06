@@ -42,7 +42,7 @@ def parse_json(model_choice):
 def csv_checkpoint(creator):
     global checkpoint_count
 
-    pd.DataFrame(data=creator).to_csv(f'checkpoint_{checkpoint_count}.csv', index=False)
+    pd.DataFrame(data=creator).to_csv(f'sheets/checkpoint_{checkpoint_count}.csv', index=False)
     checkpoint_count += 1
 
 def create_csv(data):
@@ -75,10 +75,10 @@ def create_csv(data):
         row_id.append(idx+1)
 
     creator = {"PROMPT": prompt, "ANSWER_A": answer_A, "ANSWER_B": answer_B, "CORRECT": chosen, "ID": row_id}
-    pd.DataFrame(data=creator).to_csv('treated_data.csv', index=False)
+    pd.DataFrame(data=creator).to_csv('sheets/treated_data.csv', index=False)
 
 def judge_call():
-    sheet = pd.read_csv('treated_data.csv')
+    sheet = pd.read_csv('sheets/treated_data.csv')
     preferred = []
     violations = []
     row_id = []
@@ -142,7 +142,7 @@ def judge_call():
                 violations.clear()
                 row_id.clear()
 
-        if idx in {15, 30, 45, 60}:
+        if idx % 15 == 0 and idx != 0:
             time.sleep(120)
 
     creator = {"PREFERRED": preferred, "VIOLATIONS": violations, "ID": row_id}
@@ -151,19 +151,19 @@ def judge_call():
     
     for csv in range(checkpoint_count):
         if csv == 0:
-            csv_loaded = pd.read_csv(f'checkpoint_{csv}.csv')
+            csv_loaded = pd.read_csv(f'sheets/checkpoint_{csv}.csv')
             final = csv_loaded
         else:
-            csv_loaded = pd.read_csv(f'checkpoint_{csv}.csv')
+            csv_loaded = pd.read_csv(f'sheets/checkpoint_{csv}.csv')
             final = pd.concat([final, csv_loaded], ignore_index=True)
 
-        os.remove(f'checkpoint_{csv}.csv')
+        os.remove(f'sheets/checkpoint_{csv}.csv')
 
-    pd.DataFrame(data=final).to_csv('llm_choices.csv', index=False)    
+    pd.DataFrame(data=final).to_csv('sheets/llm_choices.csv', index=False)    
 
 def calculate_error():
-    csv_1 = pd.read_csv('treated_data.csv')
-    csv_2 = pd.read_csv('llm_choices.csv')
+    csv_1 = pd.read_csv('sheets/treated_data.csv')
+    csv_2 = pd.read_csv('sheets/llm_choices.csv')
 
     if len(csv_1['ID']) == len(csv_2['ID']):
         row_id = []
@@ -202,7 +202,7 @@ def calculate_error():
         
         creator = {"ID": row_id, "HUMAN CHOICE": human_choices, "LLM CHOICE": llm_choices, "VIOLATIONS": violations}
         final = pd.DataFrame(creator)
-        final.to_csv('final_comparations.csv', index=False)
+        final.to_csv('sheets/final_comparations.csv', index=False)
 
         if len(discrepancy_id) != 0:
             for idx in range(len(discrepancy_id)):
@@ -234,28 +234,28 @@ def violation_distribution(harmless, honest, helpful):
 
     ax.barh(title, values)
     ax.yaxis.set_inverted(True)
-    ax.set_label('Number of Errors')
+    ax.set_xlabel('Number of Errors')
     ax.set_title('Where does the judge make the most mistakes?')
 
     plt.savefig('graphs/violation_distribution.png')
-    #plt.show()
+    plt.show()
 
 def kappa_context(kappa):
     fig, ax = plt.subplots()
     bottom = np.zeros(3)
-    print(kappa)
+
     kappa_position = kappa*100
 
-    name = ('Landis & Koch Scale', ' ')
+    name = 'Landis & Koch Scale'
     reference_table = {
-        'Slight': [20, 0],
-        'Fair': [20, 0],
-        'Moderate': [20, 0],
-        'Substantial': [20, 0],
-        'Almost Perfect': [20, 0]
+        'Slight': [20],
+        'Fair': [20],
+        'Moderate': [20],
+        'Substantial': [20],
+        'Almost Perfect': [20]
     }
 
-    width = (0.6, 0.1)
+    width = 0.6
     bottom = np.zeros(2)
 
     for categories, values in reference_table.items():
@@ -267,10 +267,10 @@ def kappa_context(kappa):
     ax.set_title("Cohen's Kappa Evaluation")
     ax.legend()
 
-    plt.scatter('Landis & Koch Scale', kappa_position, color='white', edgecolor='black', s=50)
+    plt.scatter('Landis & Koch Scale', kappa_position, color='white', edgecolor='black', s=100)
 
     plt.savefig('graphs/kappa_context.png')
-    #plt.show()
+    plt.show()
 
 
 def concordance_vs_discordance(concodance, discordance, num_error):
@@ -297,7 +297,7 @@ def concordance_vs_discordance(concodance, discordance, num_error):
 
     ax.set_title('Concordance vs Discordance vs Error Parsing')
     plt.savefig('graphs/concordance_vs_discordance.png')
-    #plt.show()
+    plt.show()
 
 def main():
     data = download_data()

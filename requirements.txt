@@ -1,5 +1,14 @@
-litellm
 python-dotenv
-datasets
-pandas
 numpy
+random
+pandas
+os
+json
+litellm 
+ast
+matplotlib.pyplot
+time
+sklearn.metrics
+difflib
+dotenv
+datasets
