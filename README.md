@@ -1,13 +1,13 @@
 <div align="center">
 
-[![Project Icon](images/Icon.png)]
+![Project Icon](images/Icon.png)
 
 # LLM-as-a-Judge Evaluation Harness
 
 **A pipeline wich proporse is to evaluate the decisions made by an LLM chosing the best response for a conversation between another LLM and a human.**
 
-
 </div>
+
 ---
 
 ### Motivation 
@@ -30,10 +30,10 @@ Another similar dataset is the HH-Golden wich was considerated to do this experi
 
 | | **RLHF version** | **Golden Version** |
 |---|---|---|
-| **Contaminated by a LLM** | **No** | Yes |
-| **Origin** | **Coleted on real conversations** | Based on the RLHF version |
-| **Data Quality** |  Contain ambiguities and noises | **Cleaner and aprimorated version created by GPT-4** |
-| **Gap** | Small gap between the responses | **Bigger and clearer gap between the responses** |
+| **Contaminated by AI** | No | Yes |
+| **Origin** | Coleted on real conversations | Based on the RLHF version |
+| **Data Quality** |  Contain ambiguities and noises | Cleaner and aprimorated version created by GPT-4 |
+| **Gap** | Small gap between the responses | Bigger and clearer gap between the responses |
 
 ---
 
