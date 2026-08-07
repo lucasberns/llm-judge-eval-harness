@@ -52,7 +52,7 @@ def create_csv(data):
     chosen = []
     row_id = []
 
-    for idx in range(30):
+    for idx in range(300):
         human_chosen = data['train']['chosen'][idx]
         human_rejected = data['train']['rejected'][idx]
 

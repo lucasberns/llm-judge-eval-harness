@@ -1,8 +1,2 @@
 .env
 venv/
-
-final_comparations.csv
-llm_choices.csv
-treated_data.csv
-
-graphs/
