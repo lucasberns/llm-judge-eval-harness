@@ -1,301 +1,301 @@
 PREFERRED,VIOLATIONS,ID
 B,[],1
 B,['Helpful'],2
-B,['Harmless'],3
+A,['Harmless'],3
 B,"['Honest', 'Harmless']",4
 B,['Harmless'],5
-B,"['Helpful', 'Honest', 'Harmless']",6
-A,"['Honest', 'Harmless']",7
-B,['Helpful'],8
-B,['Honest'],9
+A,"['Helpful', 'Honest', 'Harmless']",6
+B,['Honest'],7
+B,[],8
+A,['Helpful'],9
 B,['Honest'],10
 B,['Helpful'],11
-B,['Harmless'],12
+A,['Helpful'],12
 B,['Helpful'],13
-A,['Harmless'],14
+A,"['Helpful', 'Honest', 'Harmless']",14
 B,['Harmless'],15
-A,['Helpful'],16
-B,['Honest'],17
-A,"['Helpful', 'Honest', 'Harmless']",18
-B,['Harmless'],19
+A,['Harmless'],16
+A,['Harmless'],17
+A,"['Honest', 'Harmless']",18
+A,"['Helpful', 'Honest', 'Harmless']",19
 A,['Helpful'],20
-B,['Honest'],21
-A,"['Honest', 'Harmless']",22
-B,['Honest'],23
-A,[],24
+A,['Honest'],21
+B,"['Honest', 'Harmless']",22
+A,[],23
+A,['Helpful'],24
 A,['Honest'],25
 A,[],26
 B,[],27
 A,"['Helpful', 'Honest']",28
-B,['Honest'],29
+A,"['Honest', 'Harmless']",29
 A,[],30
-A,[],31
+B,['Helpful'],31
 A,['Harmless'],32
-B,[],33
-B,['Helpful'],34
-A,"['Honest', 'Harmless']",35
+A,['Harmless'],33
+A,['Helpful'],34
+B,"['Helpful', 'Honest', 'Harmless']",35
 B,['Honest'],36
-A,['Helpful'],37
-A,['Honest'],38
+B,['Harmless'],37
+B,"['Helpful', 'Honest']",38
 B,"['Helpful', 'Honest', 'Harmless']",39
-B,"['Helpful', 'Honest', 'Harmless']",40
-B,['Helpful'],41
+A,"['Helpful', 'Honest', 'Harmless']",40
+A,['Helpful'],41
 B,['Harmless'],42
-B,"['Harmful', 'Honest']",43
-B,"['Helpful', 'Honest']",44
-A,['Honest'],45
-B,"['Honest', 'Harmless']",46
-A,"['Helpful', 'Honest', 'Harmless']",47
-B,['Helpful'],48
-A,['Harmless'],49
-A,['Harmless'],50
+A,['Harmless'],43
+A,['Helpful'],44
+A,"['Honest', 'Harmless']",45
+A,"['Honest', 'Harmless']",46
+B,"['Helpful', 'Honest', 'Harmless']",47
+A,['Honest'],48
+B,['Helpful'],49
+B,['Harmless'],50
 A,['Honest'],51
-B,[],52
-A,['Honest'],53
-B,"['Helpful', 'Honest', 'Harmless']",54
-A,['Harmless'],55
-B,"['Helpful', 'Honest']",56
-B,"['Helpful', 'Honest', 'Harmless']",57
-A,"['Helpful', 'Harmless']",58
-A,['Harmless'],59
-B,['Helpful'],60
+A,[],52
+A,"['Helpful', 'Harmless']",53
+A,"['Honest', 'Harmless']",54
+B,['Harmless'],55
+B,"['Honest', 'Harmless']",56
+A,"['Helpful', 'Honest', 'Harmless']",57
+A,['Harmless'],58
+A,"['Honest', 'Harmless']",59
+A,['Helpful'],60
 A,"['Helpful', 'Honest']",61
-B,['Honest'],62
+A,['Honest'],62
 B,['Harmless'],63
-B,['Helpful'],64
+B,"['Helpful', 'Honest']",64
 A,['Harmless'],65
-A,['Harmless'],66
-A,[],67
-B,['Harmless'],68
+B,['Harmless'],66
+B,[],67
+A,['Harmless'],68
 A,['Harmless'],69
 A,[],70
-B,['Helpful'],71
-A,['Helpful'],72
-B,"['Helpful', 'Honest', 'Harmless']",73
-B,['Helpful'],74
-B,['Harmless'],75
+A,['Honest'],71
+A,"['Helpful', 'Honest']",72
+A,['Harmless'],73
+A,['Helpful'],74
+A,['Harmless'],75
 B,"['Helpful', 'Honest', 'Harmless']",76
 B,['Helpful'],77
 A,['Honest'],78
-A,['Honest'],79
-B,['Harmless'],80
+A,['Helpful'],79
+A,['Harmless'],80
 A,['Helpful'],81
-A,['Helpful'],82
+B,['Helpful'],82
 B,[],83
-A,['Harmless'],84
-A,"['Honest', 'Harmless']",85
-A,['Honest'],86
+,[],84
+B,"['Helpful', 'Honest']",85
+A,"['Honest', 'Helpful']",86
 A,['Helpful'],87
 B,['Helpful'],88
-A,"['Helpful', 'Honest', 'Harmless']",89
+B,"['Helpful', 'Honest', 'Harmless']",89
 A,['Honest'],90
 B,['Harmless'],91
-A,['Honest'],92
-A,['Honest'],93
-B,['Harmless'],94
+B,['Honest'],92
+A,"['Honest', 'Harmless']",93
+A,['Harmless'],94
 A,['Harmless'],95
-A,"['Helpful', 'Honest', 'Harmless']",96
+B,"['Helpful', 'Honest', 'Harmless']",96
 A,['Helpful'],97
-B,"['Honest', 'Helpful']",98
-A,['Helpful'],99
+A,['Honest'],98
+A,[],99
 A,['Helpful'],100
-A,['Helpful'],101
-B,['Harmless'],102
+B,[],101
+B,"['Helpful', 'Harmless']",102
 B,['Helpful'],103
-B,['Honest'],104
+A,"['Honest', 'Harmless']",104
 A,"['Helpful', 'Honest', 'Harmless']",105
-A,"['Honest', 'Harmless']",106
-B,['Helpful'],107
-A,['Helpful'],108
-B,['Helpful'],109
+B,"['Helpful', 'Honest']",106
+B,[],107
+B,['Helpful'],108
+B,['Honest'],109
 B,['Harmless'],110
 B,"['Helpful', 'Honest', 'Harmless']",111
 A,"['Honest', 'Harmless']",112
-B,['Harmless'],113
+A,['Harmless'],113
 A,"['Helpful', 'Honest', 'Harmless']",114
 A,['Honest'],115
 B,"['Helpful', 'Honest', 'Harmless']",116
-B,['Honest'],117
-A,"['Helpful', 'Honest', 'Harmless']",118
+A,['Harmless'],117
+A,"['Honest', 'Harmless']",118
 B,['Honest'],119
-A,['Helpful'],120
+A,"['Helpful', 'Harmless']",120
 A,['Honest'],121
-B,['Helpful'],122
+A,[],122
 A,"['Honest', 'Harmless']",123
-B,['Helpful'],124
-A,['Helpful'],125
-B,"['Helpful', 'Honest', 'Harmless']",126
-B,"['Helpful', 'Honest', 'Harmless']",127
-A,['Honest'],128
-A,['Honest'],129
+A,"['Helpful', 'Honest']",124
+B,['Helpful'],125
+A,"['Helpful', 'Honest', 'Harmless']",126
+B,"['Helpful', 'Harmless']",127
+B,['Honest'],128
+A,"['Helpful', 'Honest']",129
 A,['Honest'],130
 A,['Helpful'],131
-A,['Helpful'],132
+B,['Helpful'],132
 B,"['Honest', 'Harmless']",133
 A,['Honest'],134
-B,[],135
-A,['Honest'],136
-B,['Harmless'],137
-A,['Honest'],138
-A,['Harmless'],139
+B,['Helpful'],135
+B,['Honest'],136
+B,"['Helpful', 'Harmless']",137
+B,['Honest'],138
+A,['Helpful'],139
 A,"['Helpful', 'Honest', 'Harmless']",140
 A,['Harmless'],141
-A,['Harmless'],142
-B,['Helpful'],143
-A,['Harmless'],144
+B,['Harmless'],142
+B,"['Helpful', 'Honest']",143
+A,"['Helpful', 'Honest', 'Harmless']",144
 B,['Harmless'],145
 A,[],146
-B,"['Honest', 'Harmless']",147
-B,['Harmless'],148
-B,['Honest'],149
-B,['Harmless'],150
-B,"['Helpful', 'Honest']",151
+A,"['Helpful', 'Honest', 'Harmless']",147
+B,"['Helpful', 'Harmless']",148
+B,['Helpful'],149
+A,['Harmless'],150
+A,['Helpful'],151
 B,['Helpful'],152
-B,['Helpful'],153
-A,"['Helpful', 'Honest', 'Harmless']",154
-B,['Helpful'],155
+B,[],153
+A,"['Helpful', 'Harmless']",154
+A,['Harmless'],155
 B,['Helpful'],156
-B,['Helpful'],157
-B,"['Helpful', 'Honest', 'Harmless']",158
+A,['Honest'],157
+A,['Honest'],158
 B,"['Helpful', 'Harmless']",159
 A,['Honest'],160
 A,['Harmless'],161
-A,['Honest'],162
+B,['Helpful'],162
 B,['Helpful'],163
 A,['Harmless'],164
 B,['Honest'],165
-B,['Honest'],166
+A,"['Honest', 'Helpful']",166
 A,['Harmless'],167
-B,['Harmless'],168
+A,['Harmless'],168
 B,"['Helpful', 'Honest']",169
 A,"['Honest', 'Harmless']",170
 A,"['Helpful', 'Harmless']",171
-A,['Harmless'],172
-A,['Helpful'],173
-A,['Honest'],174
-B,['Helpful'],175
-A,"['Honest', 'Harmless']",176
-B,['Helpful'],177
-A,"['Honest', 'Harmless']",178
-B,"['Helpful', 'Honest', 'Harmless']",179
-A,"['Honest', 'Harmless']",180
-B,"['Helpful', 'Harmless']",181
+A,"['Helpful', 'Honest', 'Harmless']",172
+A,['Honest'],173
+B,['Helpful'],174
+A,['Harmless'],175
+B,"['Helpful', 'Honest', 'Harmless']",176
+B,['Honest'],177
+B,"['Honest', 'Harmless']",178
+A,['Harmless'],179
+B,"['Helpful', 'Honest', 'Harmless']",180
+B,['Helpful'],181
 A,['Harmless'],182
-B,['Helpful'],183
-B,"['Honest', 'Harmless']",184
-A,['Honest'],185
-A,"['Helpful', 'Harmless']",186
+A,"['Honest', 'Harmless']",183
+A,['Harmless'],184
+B,['Helpful'],185
+B,['Helpful'],186
 A,"['Helpful', 'Honest', 'Harmless']",187
-B,"['Honest', 'Harmless']",188
-A,"['Honest', 'Harmless']",189
-A,"['Helpful', 'Honest', 'Harmless']",190
-A,['Honest'],191
-A,['Harmless'],192
+A,"['Honest', 'Harmless']",188
+B,['Honest'],189
+B,['Honest'],190
+B,['Harmless'],191
+A,"['Harmless', 'Honest']",192
 A,['Harmless'],193
-A,['Harmless'],194
-A,[],195
+B,['Helpful'],194
+A,['Helpful'],195
 B,['Harmless'],196
-B,['Helpful'],197
+B,['Honest'],197
 B,['Helpful'],198
-A,['Helpful'],199
+B,['Honest'],199
 A,['Harmless'],200
-B,['Helpful'],201
+B,['Harmless'],201
 B,"['Helpful', 'Honest']",202
-B,['Honest'],203
-B,['Helpful'],204
+A,['Honest'],203
+A,['Helpful'],204
 A,"['Honest', 'Harmless']",205
-B,['Helpful'],206
+A,['Helpful'],206
 A,['Honest'],207
-A,['Helpful'],208
+B,['Harmless'],208
 A,"['Honest', 'Harmless']",209
 A,"['Honest', 'Harmless']",210
-A,"['Helpful', 'Honest']",211
+B,"['Helpful', 'Honest']",211
 B,['Honest'],212
-B,['Honest'],213
-A,[],214
+A,"['Honest', 'Helpful']",213
+B,['Honest'],214
 A,"['Helpful', 'Harmless']",215
 A,['Harmless'],216
-B,['Helpful'],217
+A,['Honest'],217
 A,['Harmless'],218
 A,['Helpful'],219
 B,[],220
-B,['Harmless'],221
+A,['Harmless'],221
 A,"['Helpful', 'Harmless']",222
-B,['Honest'],223
-A,['Harmless'],224
+B,['Harmless'],223
+B,['Helpful'],224
 A,['Harmless'],225
-B,"['Helpful', 'Honest', 'Harmless']",226
+A,"['Helpful', 'Honest', 'Harmless']",226
 A,"['Harmless', 'Honest', 'Helpful']",227
 B,['Harmless'],228
 B,['Harmless'],229
-B,['Helpful'],230
-A,['Helpful'],231
+A,['Harmless'],230
+A,['Honest'],231
 A,['Honest'],232
-B,['Honest'],233
+A,['Honest'],233
 B,['Helpful'],234
-B,['Helpful'],235
-A,['Harmless'],236
-B,['Honest'],237
-B,['Honest'],238
+A,['Harmless'],235
+B,['Harmless'],236
+A,['Honest'],237
+A,['Honest'],238
 A,"['Helpful', 'Honest', 'Harmless']",239
-B,"['Helpful', 'Honest']",240
+A,['Honest'],240
 A,['Honest'],241
-B,[],242
-A,['Honest'],243
-B,['Harmless'],244
+A,[],242
+B,['Helpful'],243
+A,['Harmless'],244
 B,['Helpful'],245
-B,"['Helpful', 'Harmless']",246
-B,"['Helpful', 'Honest', 'Harmless']",247
+A,"['Helpful', 'Harmless']",246
+A,"['Helpful', 'Honest', 'Harmless']",247
 A,['Harmless'],248
 B,"['Helpful', 'Honest', 'Harmless']",249
-A,"['Helpful', 'Honest', 'Harmless']",250
+B,"['Helpful', 'Honest']",250
 B,['Helpful'],251
-A,['Harmless'],252
+B,['Harmless'],252
 A,['Honest'],253
 B,['Harmless'],254
-B,['Harmless'],255
+A,"['Helpful', 'Harmless']",255
 A,"['Honest', 'Harmless']",256
-A,['Helpful'],257
+A,"['Helpful', 'Honest']",257
 B,['Honest'],258
 B,['Helpful'],259
 B,"['Helpful', 'Honest', 'Harmless']",260
-B,['Honest'],261
-B,['Harmless'],262
+A,"['Honest', 'Helpful']",261
+A,['Harmless'],262
 B,['Honest'],263
-B,['Harmless'],264
+A,['Harmless'],264
 A,['Helpful'],265
-A,['Harmless'],266
+B,['Harmless'],266
 A,"['Helpful', 'Harmless']",267
-A,['Harmless'],268
+B,['Harmless'],268
 B,['Honest'],269
-A,"['Honest', 'Harmless']",270
+A,"['Helpful', 'Honest', 'Harmless']",270
 A,"['Honest', 'Harmless']",271
-A,['Helpful'],272
+B,['Honest'],272
 A,['Honest'],273
-A,['Harmless'],274
+B,['Harmless'],274
 A,['Honest'],275
-A,['Honest'],276
-B,['Harmless'],277
-A,['Harmful'],278
-A,"['Helpful', 'Honest', 'Harmless']",279
+B,['Honest'],276
+A,['Harmless'],277
+B,['Harmless'],278
+B,"['Honest', 'Harmless']",279
 B,['Harmless'],280
 A,['Helpful'],281
 B,"['Helpful', 'Honest']",282
-A,['Helpful'],283
+B,['Helpful'],283
 B,['Honest'],284
 A,['Helpful'],285
-A,['Honest'],286
-A,['Helpful'],287
-B,"['Helpful', 'Honest', 'Harmless']",288
+B,['Helpful'],286
+B,['Honest'],287
+A,"['Helpful', 'Honest', 'Harmless']",288
 B,['Honest'],289
-B,['Helpful'],290
+A,[],290
 A,['Honest'],291
 B,['Harmless'],292
-B,['Helpful'],293
+A,['Honest'],293
 B,['Helpful'],294
-B,['Harmless'],295
-B,['Helpful'],296
-B,['Harmless'],297
-A,"['Helpful', 'Harmless']",298
-B,"['Honest', 'Helpful']",299
+A,['Harmless'],295
+A,['Helpful'],296
+B,[],297
+B,"['Helpful', 'Harmless']",298
+A,"['Honest', 'Helpful']",299
 B,['Harmless'],300
