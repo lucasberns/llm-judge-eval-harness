@@ -1,14 +1,8 @@
 python-dotenv
 numpy
-random
 pandas
-os
-json
 litellm 
-ast
-matplotlib.pyplot
-time
-sklearn.metrics
-difflib
+matplotlib
+scikit-learn
 dotenv
 datasets

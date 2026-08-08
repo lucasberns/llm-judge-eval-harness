@@ -130,18 +130,30 @@ Model configuration during the run:
 ## Results
 
 ### 1. Overview: Concordance, Discordance & Parsing Errors
+
+<div align="center">
 ![Concordance vs Discordance](graphs/concordance_vs_discordance.png)
+</div>
+
 In this experiment 300 lines were processed, wich 188 agreed, 112 disagreed and 0 failed the parsing
 
 ### 2. Cohen's Kappa
+
+<div align="center">
 ![Kappa's Table](graphs/kappa_context.png)
+</div>
+
 The Kappa gotten is `0.25` 
 On the Landis & Koch scale, this classifies as `Fair` agreement, notably below most values reported in recent LLM-as-judge literature, which typically range from `Moderate` to `Almost Perfect` (see Methodology references). Even studies conducted in harder evaluation contexts, such as clinical safety judgments, report Kappa in the `0.56–0.75` range.
 
 This gap raises a methodological question worth flagging rather than smoothing over: a recent large-scale study (Reliability without Validity, 2026) found that raw agreement consistently overstates a judge's real discriminative ability by 33–41 percentage points once corrected for chance. This is a phenomenon the authors call "kappa deflation." It is possible this experiment's judge exhibits a similar gap between apparent and chance-corrected reliability, and this is explored further in the Limitations section.
 
 ### 3. Where the Judge Fails: HHH Error Distribution
+
+<div align="center">
 ![Violation Distribution](graphs/violation_distribution.png)
+</div>
+
 In the disagreed lines, the violation distribution per dimension was Harmless `35`, Honest `42`, Helpful `56`.
 The dimension with most errors is Helpful, surpassing Honest by 14 occurrences. A plausible explanation is that `Helpful` is the broadest and most subjective of the three dimensions. Nearly any answer that is less complete or less directly useful than its counterpart can be flagged under it, whereas `Honest` requires identifying a specific factual error (harder to assert without external verification) and `Harmless` requires a clearer, more binary judgment of danger or offense. This asymmetry in how "checkable" each dimension is may explain why the judge converges on `Helpful` violations more often, rather than this necessarily reflecting where the underlying responses actually fail most.
 
